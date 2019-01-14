@@ -22,13 +22,29 @@
 
   <style>
 
+  :root {
+    --base: #637482;
+    --spacing: 10px;
+    --blur: 3px;
+  }
+
+    img{
+      padding: var(--spacing);
+      filter: blur(var(--blur));
+      background: var(--base);
+    }
+
+    .hl {
+      color: var(--base);
+    }
+
     /*
       misc styles, nothing to do with CSS variables
     */
 
     body {
       text-align: center;
-      background: #193549;
+      background: #734950;
       color: white;
       font-family: 'helvetica neue', sans-serif;
       font-weight: 100;
@@ -42,9 +58,28 @@
     input {
       width: 100px;
     }
+
   </style>
 
   <script>
+    // selecting all inputs
+    const inputs = document.querySelectorAll('input')
+    console.log(inputs);
+
+
+    // updating values
+    function handleUpdate() {
+      // this one takes the suffix value set in the data attributes
+      const suffix = this.dataset.sizing || '';
+      // set the root properties to the values grabbed from the user input
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    };
+
+    // event listeners
+    inputs.forEach(e => e.addEventListener('change', handleUpdate));
+    inputs.forEach(e => e.addEventListener('mousemove', handleUpdate));
+
+
   </script>
 
 </body>
