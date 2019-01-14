@@ -59,6 +59,30 @@
 
 <script>
 
+  function playSound(e) {
+    // select the element corresponding to the key code
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
+    // if nothing selected (= no data-key corresponding to the key pressed), return
+    if(!audio) return;
+    audio.currentTime = 0;
+    // is something : play the sound
+    audio.play();
+    key.classList.add('playing');
+  };
+
+
+  function removeTransition(e) {
+    this.classList.remove('playing');
+  };
+
+  const keys = document.querySelectorAll('.key');
+  keys.forEach((key) => {
+    key.addEventListener('transitionend', removeTransition);
+  });
+
+  window.addEventListener('keydown', playSound);
+
 </script>
 
 
